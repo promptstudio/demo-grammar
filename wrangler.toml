@@ -1,3 +1,11 @@
-name = "" # todo
-main = "./src/index.ts"
+name               = "demo-grammar"   # todo
+main               = "./src/index.ts"
 compatibility_date = "2022-05-03"
+
+# change me!
+account_id = "e4e41c1230979aa5c76f23efa4643401"
+
+[[rules]]
+    type        = "Data"
+    globs       = ["**/*.html"]
+    fallthrough = false
