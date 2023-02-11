@@ -4,8 +4,13 @@ compatibility_date = "2022-05-03"
 
 account_id = "e4e41c1230979aa5c76f23efa4643401"
 
+routes = [
+    { pattern = "https://demo.promptstudio.ai/grammar/*", zone_id = "3938127f2f45c5dcbcd66ee884a3a96a" },
+]
+
 [vars]
     PROMPTSTUDIO_PROXY_ID = "3479a61a-9d8b-4884-99b5-02933833e6f3"
+
 
 [[rules]]
     type        = "Data"

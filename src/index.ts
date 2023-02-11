@@ -5,6 +5,8 @@ export default {
 		let url = new URL(request.url);
 		let path = url.pathname.slice(1).split('/');
 
+		if (path[0] === 'grammar') path.shift();
+
 		if (!path[0]) {
 			// Serve our HTML at the root path.
 			return new Response(HTML, { headers: { 'Content-Type': 'text/html;charset=UTF-8' } });
