@@ -77,14 +77,16 @@
 
             <div class="row">
                 <!-- Make it vertially aligned -->
-                <div class="col-6">
-                    <p><label for="input">Input:</label></p>
-                    <p>
-                        <textarea class="input"
-                            onclick="if (!this.clicked) {this.clicked=1; this.select()}">Ich bist muede...</textarea>
-                    </p>
-                    <p><button class="button primary" onclick="queryExample('simple')">Check</button></p>
-
+                <div class="col-6"
+                    style="display: flex; flex-direction: column; justify-content: center; transition:all 1s;">
+                    <div>
+                        <p><label for="input">Input:</label></p>
+                        <p>
+                            <textarea class="input"
+                                onclick="if (!this.clicked) {this.clicked=1; this.select()}">Ich bist muede...</textarea>
+                        </p>
+                        <p><button class="button primary" onclick="queryExample('simple')">Check</button></p>
+                    </div>
                 </div>
                 <div class="col-6">
                     <p>
@@ -93,12 +95,11 @@
                 </div>
 
                 <div class="col-12" style="margin-top: 60px;">
-                    <p>This is a typical request to OpenAI API, but proxied through our tool.
+                    <p>This is a typical request to OpenAI API, but proxied through the PromptStudio Proxy.
                         The proxy is free to use, but you need to <a href="https://promptstudio.ai/signup">sign up</a>
-                        to get your own proxy ID.</p>
-                    <p>(No limits - you'll definitely hit OpenAI limits much sooner.)</p>
-                    <p>Even using it simply as a proxy, you get access to powerful features: realtime debugging,
-                        logging, rate-limiting.
+                        to get your own proxy ID. (No limits - you'll definitely hit OpenAI limits much sooner.) Then
+                        you will get access to powerful features: <strong>realtime
+                            debugging</strong>, <strong>logging</strong>, <strong>rate-limiting</strong>.
                     </p>
                     <p>Open the debugger page, then click the button.</p>
                     </p>

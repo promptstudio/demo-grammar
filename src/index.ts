@@ -8,14 +8,17 @@ async function loggingFetchJson<T>(
 	sentry: Toucan,
 	request: string | Request,
 	requestInitr: Request | RequestInit | undefined,
-	body: any
+	body: any,
+	fetchOverride?: typeof fetch
 ): Promise<T> {
+	const currentfetch = fetchOverride || fetch;
+
 	sentry.addBreadcrumb({
 		message: `request ${request}`,
 		data: { ...requestInitr, reqdata: body },
 	});
 
-	const resp = await fetch(request, {
+	const resp = await currentfetch(request, {
 		body: JSON.stringify(body),
 		...requestInitr,
 	});
@@ -86,7 +89,9 @@ export default {
 						top_p: 1,
 						frequency_penalty: 0,
 						presence_penalty: 0,
-					}
+					},
+					// to fix weirdness in worker-to-worker communication
+					env.invoke ? env.invoke.fetch.bind(env.invoke) : undefined
 				);
 				console.log(result);
 

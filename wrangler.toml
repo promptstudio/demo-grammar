@@ -8,6 +8,8 @@ routes = [
     { pattern = "https://demo.promptstudio.ai/grammar/*", zone_id = "3938127f2f45c5dcbcd66ee884a3a96a" },
 ]
 
+services = [{ binding = "invoke", service = "invoke" }]
+
 [vars]
     PROMPTSTUDIO_PROXY_ID = "3479a61a-9d8b-4884-99b5-02933833e6f3"
 
