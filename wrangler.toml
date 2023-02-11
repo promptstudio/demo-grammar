@@ -1,9 +1,11 @@
-name               = "demo-grammar"   # todo
+name               = "demo-grammar"
 main               = "./src/index.ts"
 compatibility_date = "2022-05-03"
 
-# change me!
 account_id = "e4e41c1230979aa5c76f23efa4643401"
+
+[vars]
+    PROMPTSTUDIO_PROXY_ID = "3479a61a-9d8b-4884-99b5-02933833e6f3"
 
 [[rules]]
     type        = "Data"

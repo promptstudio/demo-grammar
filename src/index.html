@@ -4,17 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-    <title>Any Language Grammar Check :: PromptStudio Demo</title>
+    <link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/default.min.css">
+    <script src="//unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <title>Any Language Grammar Check : PromptStudio Demo</title>
     <style>
         :root {
             --color-primary: #D4574A;
             --color-success: #72A7E8;
-            --bg-color: #f2f5f8;
+            --bg-color: #f7f7f7;
             --font-color: #13140D;
-            --grid-maxWidth: 800px;
+            --grid-maxWidth: 1000px;
             --font-family-sans: 'Gill Sans', sans-serif;
         }
+
+        /* .output { */
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        pre.code {}
     </style>
+    <script>
+        async function queryExample(exampleId) {
+            const button = document.querySelector(`#${exampleId} button`);
+            button.disabled = true;
+
+            const input = document.querySelector(`#${exampleId} .input`).value;
+            const output = document.querySelector(`#${exampleId} .output`);
+
+            try {
+                const result = await fetch('/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        input
+                    })
+                });
+
+                const json = await result.json();
+
+                output.innerText = json.grammar_response;
+
+            } catch (e) {
+                output.innerText = e;
+            }
+            output.style.display = 'block';
+
+            button.disabled = false;
+        }
+    </script>
 </head>
 
 <body>
@@ -24,18 +67,52 @@
             <h1 style="color: #18457c; font-size: 2.5em;">“Any Language Grammar Check”</h1>
             <small>This is a demo for <a href="https://promptstudio.ai/">PromptStudio</a>. Source on <a
                     href="https://github.com/promptstudio/demo-grammar">GitHub</a></small>
-            <small>Feel free to use it for a quick grammar check, too.</small>
+            <small>Feel free to use it for a quick grammar check as well.</small>
         </div>
         <section id="simple">
             <h2>Example 1: A simple request to OpenAI</h2>
 
             <div class="row">
-                <div class="col">
+                <div class="col-4">
                     <p><label for="input">Input:</label></p>
                     <p>
-                        <textarea>Ich bin muede...</textarea>
+                        <textarea class="input"
+                            onclick="if (!this.clicked) {this.clicked=1; this.select()}">Ich bist muede...</textarea>
                     </p>
-                    <p><button class="button primary">Check</button></p>
+                    <p><button class="button primary" onclick="queryExample('simple')">Check</button></p>
+                    <p>
+                    <pre class="output" style="display: none; background-color: white;"></pre>
+                    </p>
+                </div>
+                <div class="col-8">
+                    <p>This is a typical request to OpenAI API, but proxied through our tool.
+                        The proxy is free to use, but you need to <a href="https://promptstudio.ai/signup">sign up</a>
+                        to get your own proxy ID.</p>
+                    <p>(No limits - you'll definitely hit OpenAI limits much sooner.)</p>
+                    <p>Even using it simply as a proxy, you get access to powerful features: realtime debugging,
+                        logging, rate-limiting.
+                    </p>
+                    <p>Open the debugger page, then click the button.</p>
+                    </p>
+                    <pre><code class="language-js">const result = await fetch(
+    `https://openai.promptstudio.ai/${env.PROMPTSTUDIO_PROXY_ID}/v1/completions`,
+    {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + env.OPENAI_API_KEY,
+        },
+        body: JSON.stringify({
+            model: 'text-davinci-003',
+            prompt: `Rewrite a sentence correctly in the language it is written in, then explain the changes. Do not translate the sentence. Be careful about words lexically fitting together, sounding idiomatically.\n\n"${data.input}"`,
+            temperature: 0.7,
+            max_tokens: 256,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+        }),
+    }
+);</code></pre>
                 </div>
             </div>
         </section>
