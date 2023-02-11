@@ -11,5 +11,9 @@
 		"@cloudflare/workers-types": "^3.0.0",
 		"vitest": "^0.24.5",
 		"wrangler": "^2.1.14"
+	},
+	"dependencies": {
+		"@sentry/integrations": "^7.37.1",
+		"toucan-js": "^3.1.0"
 	}
 }

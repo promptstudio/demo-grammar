@@ -9,6 +9,8 @@
     <script>hljs.highlightAll();</script>
 
     <title>Any Language Grammar Check : PromptStudio Demo</title>
+    <!-- this one is ... ugly -->
+    <!-- <link href="https://fonts.cdnfonts.com/css/gill-sans" rel="stylesheet"> -->
     <style>
         :root {
             --color-primary: #D4574A;
@@ -16,7 +18,8 @@
             --bg-color: #f7f7f7;
             --font-color: #13140D;
             --grid-maxWidth: 1000px;
-            --font-family-sans: 'Gill Sans', sans-serif;
+            /* todo: add Gill Sans as a web font */
+            /* --font-family-sans: 'Gill Sans', sans-serif; */
         }
 
         /* .output { */
@@ -36,7 +39,7 @@
             const output = document.querySelector(`#${exampleId} .output`);
 
             try {
-                const result = await fetch('/query', {
+                const result = await fetch('/grammar/query', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -73,18 +76,23 @@
             <h2>Example 1: A simple request to OpenAI</h2>
 
             <div class="row">
-                <div class="col-4">
+                <!-- Make it vertially aligned -->
+                <div class="col-6">
                     <p><label for="input">Input:</label></p>
                     <p>
                         <textarea class="input"
                             onclick="if (!this.clicked) {this.clicked=1; this.select()}">Ich bist muede...</textarea>
                     </p>
                     <p><button class="button primary" onclick="queryExample('simple')">Check</button></p>
+
+                </div>
+                <div class="col-6">
                     <p>
                     <pre class="output" style="display: none; background-color: white;"></pre>
                     </p>
                 </div>
-                <div class="col-8">
+
+                <div class="col-12" style="margin-top: 60px;">
                     <p>This is a typical request to OpenAI API, but proxied through our tool.
                         The proxy is free to use, but you need to <a href="https://promptstudio.ai/signup">sign up</a>
                         to get your own proxy ID.</p>
